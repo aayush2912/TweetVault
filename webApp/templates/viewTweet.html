@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Tweet</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        .bg-low { background-color: #13e90f; } /* Light blue for low filter level */
+        .bg-medium { background-color: #d5a209; } /* Light yellow for medium filter level */
+        .bg-high { background-color: #cb0418; } /* Light red for high filter level and possibly sensitive content */
+        .bg-none { background-color: #f8fbfe; } /* Light gray for undefined or other filter levels */
+       
+        .rounded-custom {
+            border-radius: 100px;} 
+        h1 span.eb-garamond-font {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+        body {
+            color: #6afff0;
+            background-color: #1A1A1A; /* Background color from the theme */
+            /*color: #D9D9D9; /* Text color from the theme */
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* The font from the theme, maintain EB Garamond for the title */
+        }
+
+        .navbar-dark.bg-dark {
+            background-color: #000000 !important;
+            /* White shadow effect */
+            box-shadow: 0 4px 10px 0 rgba(225, 225, 225, 0.3);
+        }
+
+        .rounded-custom {
+            border-radius: 100px;
+        } 
+
+        h1 span.eb-garamond-font {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            letter-spacing: 2px;
+            color: #6afff0; 
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #6afff0; /* Greenish-blue color for specific headings */
+        }
+
+        .form-control {
+            background-color: #333333; /* Input background color */
+            border: none;
+            color: #333333; /* Input text color */
+        }
+
+        .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #97cef3; /* Placeholder text color */
+            opacity: 1; /* Firefox */
+        }
+
+        .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #addefd;
+        }
+
+        .form-control::-ms-input-placeholder { /* Microsoft Edge */
+            color: #87cdef;
+        }
+
+        .btn-primary {
+            background-color: #0159a0f5; /* Twitter blue for the button */
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #1991DA; /* Slightly darker shade on hover */
+        }
+
+        .card-body {
+    background-color: #75757500; /* Dark grey for the background */
+    color: #01695e; /* Cyanish color for the text */
+    box-shadow: 0px 10px 18px 0px rgba(78, 77, 77, 0.3); 
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Tweet Details</h1>
+        <div class="card mt-3">
+            <div class="card-body">
+                <h1 class="card-text">Tweet ID: {{ tweet.id_str }}</h1>
+                <h5 class="card-text"><strong>Tweet Text:</strong></h5>
+                <p>{{ tweet.text }}</p>
+                <p class="card-text"><strong>Created At:</strong> {{ tweet.created_at }}</p>
+                <p class="card-text"><strong>User Screen Name:</strong> {{ tweet.user.screen_name }}</p>
+                <p class="card-text"><strong>Quote Count:</strong> {{ tweet.get('quote_count', 'N/A') }}</p>
+                <p class="card-text"><strong>Reply Count: {{ tweet.get('reply_count', 'N/A') }}</p>
+                <p class="card-text"><strong>Retweet Count: {{ tweet.get('retweet_count', 'N/A') }}</p>
+                <p class="card-text"><strong>Is sensitive for Public? :</strong> {{ tweet.get('sensitivity', 'N/A') }}</p>
+                <p class="card-text"><strong>Filter Level:</strong> {{ tweet.get('filter_level', 'N/A') }}</p>
+                <a href="/user_tweets/{{ tweet.user.screen_name }}" class="btn btn-primary">View All Tweets by {{ tweet.user.screen_name }}</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

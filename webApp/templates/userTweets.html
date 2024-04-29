@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Tweets</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+        .bg-low { background-color: #13e90f; } /* Light blue for low filter level */
+        .bg-medium { background-color: #d5a209; } /* Light yellow for medium filter level */
+        .bg-high { background-color: #cb0418; } /* Light red for high filter level and possibly sensitive content */
+        .bg-none { background-color: #f8fbfe; } /* Light gray for undefined or other filter levels */
+       
+        .rounded-custom {
+            border-radius: 100px;} 
+        h1 span.eb-garamond-font {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+        body {
+            color: #6afff0;
+            background-color: #1A1A1A; /* Background color from the theme */
+            /*color: #D9D9D9; /* Text color from the theme */
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* The font from the theme, maintain EB Garamond for the title */
+        }
+
+        .navbar-dark.bg-dark {
+            background-color: #000000 !important;
+            /* White shadow effect */
+            box-shadow: 0 4px 10px 0 rgba(225, 225, 225, 0.3);
+        }
+
+        .rounded-custom {
+            border-radius: 100px;
+        } 
+
+        h1 span.eb-garamond-font {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            letter-spacing: 2px;
+            color: #6afff0; 
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #6afff0; 
+        }
+
+        .form-control {
+            background-color: #333333; 
+            border: none;
+            color: #333333; 
+        }
+
+        .form-control::placeholder { 
+            color: #97cef3; 
+            opacity: 1; 
+        }
+
+        .form-control:-ms-input-placeholder { 
+            color: #addefd;
+        }
+
+        .form-control::-ms-input-placeholder { 
+            color: #87cdef;
+        }
+
+        .btn-primary {
+            background-color: #0159a0f5; 
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #1991DA; 
+        }
+
+        .card-body {
+    background-color: #75757500; 
+    color: #011d1a; 
+    box-shadow: 0px 10px 18px 0px rgba(78, 77, 77, 0.3); 
+}
+        
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-3">Tweets by User: {{ user_id_str }}</h1>
+
+        <section>
+            <h2>Original Tweets</h2>
+            <div class="row">
+                {% for tweet in original_tweets %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 {% if tweet.sensitivity %}bg-high{% endif %}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ tweet.user.screen_name }}</h5>
+                            <p class="card-text">{{ tweet.text }}</p>
+                            <a href="https://twitter.com/{{ tweet.user.screen_name }}/status/{{ tweet.id_str }}" class="btn btn-primary" target="_blank">View Full Tweet</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2>Retweets</h2>
+            <div class="row">
+                {% for tweet in retweets %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 {% if tweet.sensitivity %}bg-high{% endif %}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ tweet.user.screen_name }}</h5>
+                            <p class="card-text">{{ tweet.text }}</p>
+                            <a href="https://twitter.com/{{ tweet.user.screen_name }}/status/{{ tweet.id_str }}" class="btn btn-primary" target="_blank">View Full Tweet</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2>Quoted Tweets</h2>
+            <div class="row">
+                {% for tweet in quoted_tweets %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 {% if tweet.sensitivity %}bg-high{% endif %}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ tweet.user.screen_name }}</h5>
+                            <p class="card-text">{{ tweet.text }}</p>
+                            <a href="https://twitter.com/{{ tweet.user.screen_name }}/status/{{ tweet.id_str }}" class="btn btn-primary" target="_blank">View Full Tweet</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        
+    </div>
+</body>
+</html>

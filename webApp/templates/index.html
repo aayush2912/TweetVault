@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Analyzer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            color: #6afff0;
+            background-color: #1A1A1A; 
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+        }
+
+        .navbar-dark.bg-dark {
+            background-color: #000000 !important;
+            box-shadow: 0 4px 10px 0 rgba(225, 225, 225, 0.3);
+        }
+
+        .rounded-custom {
+            border-radius: 100px;
+        } 
+
+        h1 span.eb-garamond-font {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            letter-spacing: 2px;
+            color: #6afff0; 
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #6afff0; 
+        }
+
+        .form-control {
+            background-color: #333333; 
+            border: none;
+            color: #333333; 
+        }
+
+        .form-control::placeholder { 
+            color: #97cef3; 
+            opacity: 1; 
+        }
+
+        .form-control:-ms-input-placeholder { 
+            color: #addefd;
+        }
+
+        .form-control::-ms-input-placeholder { 
+            color: #87cdef;
+        }
+
+        .btn-primary {
+            background-color: #0159a0f5; 
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #1991DA;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5"><span class="eb-garamond-font">#TweetVault</span></h1>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-custom shadow"> 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/top10Users">Top 10 Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/top10Tweets">Top 10 Tweets</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/top_hashtags">Top 10 Hashtags</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <h2>Search User</h2>
+                <form action="/search" method="POST">
+                    <div class="form-group">
+                        <label for="username">Enter User's Twitter Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="e.g., @username" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+
+            </div>
+            <div class="col-md-4">
+                <h2>Search Tweets</h2>
+                <form action="/search_tweets" method="POST">
+                    <div class="form-group">
+                        <label for="search_word">Enter Tweet Text:</label>
+                        <input type="text" class="form-control" id="search_word" name="search_word" placeholder="e.g., keyword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            
+            <div class="col-md-4">
+                <h2>Search Hashtags</h2>
+                <form action="/search_hashtags" method="post">
+                    <div class="form-group">
+                        <label for="hashtag">Enter Hashtag:</label>
+                        <input type="text" class="form-control" id="hashtag" name="hashtag" placeholder="e.g., #hashtag" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

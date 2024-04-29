@@ -1,0 +1,56 @@
+<!-- searchUsers.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Search Results</h1>
+        <p>Search Time: {{search_time}} seconds</p>
+        <form method="POST" action="/search">
+            <div class="form-group">
+                <input type="hidden" name="username" value="{{ search_criteria }}">
+                <label for="sort">Sort By:</label>
+                <select class="form-control" id="sort" name="sort" onchange="this.form.submit()">
+                    <option value="">Select Sort Option</option>
+                    <option value="created_at_asc">Created At (Oldest First)</option>
+                    <option value="created_at_desc">Created At (Newest First)</option>
+                    <option value="followers_count_asc">Followers Count (Ascending)</option>
+                    <option value="followers_count_desc">Followers Count (Descending)</option>
+                    <option value="statuses_count_asc">Statuses Count (Ascending)</option>
+                    <option value="statuses_count_desc">Statuses Count (Descending)</option>
+                </select>
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Followers Count</th>
+                    <th>Statuses Count</th>
+                    <th>User's Total Tweets</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.screen_name }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.followers_count }}</td>
+                    <td>{{ user.statuses_count }}</td>
+                    <td><a href="{{ url_for('user_tweets', user_id_str=user.id_str) }}">{{ user.name }}</a></td>
+                  
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>Search Time: {{ search_time }}</p>
+    </div>
+</body>
+</html>

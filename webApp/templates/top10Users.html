@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Users Metrics</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .rounded-custom {
+            border-radius: 100px;} 
+        h1 span.eb-garamond-font {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+        body {
+            color: #6afff0;
+            background-color: #1A1A1A; /* Background color from the theme */
+            /*color: #D9D9D9; /* Text color from the theme */
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* The font from the theme, maintain EB Garamond for the title */
+        }
+
+        .navbar-dark.bg-dark {
+            background-color: #000000 !important;
+            /* White shadow effect */
+            box-shadow: 0 4px 10px 0 rgba(225, 225, 225, 0.3);
+        }
+
+        .rounded-custom {
+            border-radius: 100px;
+        } 
+
+        h1 span.eb-garamond-font {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            letter-spacing: 2px;
+            color: #6afff0; 
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #6afff0; 
+        }
+
+        .form-control {
+            background-color: #333333; 
+            border: none;
+            color: #333333; 
+        }
+
+        .form-control::placeholder { 
+            color: #97cef3; 
+            opacity: 1; 
+        }
+
+        .form-control:-ms-input-placeholder { 
+            color: #addefd;
+        }
+
+        .form-control::-ms-input-placeholder { 
+            color: #87cdef;
+        }
+
+        .btn-primary {
+            background-color: #0159a0f5; 
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #1991DA; 
+        }
+        .table th,
+.table td {
+    color: #6afff0; 
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5"><span class="eb-garamond-font">#TweetVault</span></h1>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-custom shadow"> 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/top10Users">Top 10 Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/top10Tweets">Top 10 Tweets</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/top_hashtags">Top 10 Hashtags</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <h1 class="mt-5">Top Users Metrics</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Screen Name</th>
+                    <th>Metric 1 Score</th>
+                    <th>View Tweets</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in top10Users %}
+                <tr>
+                    <td>{{ user[0] }}</td>
+                    <td>{{ user[1] }}</td>
+                    <td>{{ user[2] }}</td>
+                    <td><a href="{{ url_for('user_tweets', user_id_str=user[0]) }}">{{user[1]}}</a></td> <!-- Link to view tweets -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Tweets Result</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+        .card {
+            margin-bottom: 20px;
+        }
+        
+        .rounded-custom {
+            border-radius: 100px;
+        } 
+
+        h1 span.eb-garamond-font {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            letter-spacing: 2px;
+            color: #6afff0; 
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #6afff0; 
+        }
+
+        .form-control {
+            background-color: #333333; 
+            border: none;
+            color: #6afff0; 
+        }
+
+        .form-control::placeholder {
+            color: #97cef3; 
+            opacity: 1;
+        }
+
+        .form-control:-ms-input-placeholder {
+            color: #addefd;
+        }
+
+        .form-control::-ms-input-placeholder {
+            color: #87cdef;
+        }
+
+        .btn-primary {
+            background-color: #0159a0f5; 
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #1991DA; 
+        }
+
+        .table th,
+        .table td {
+            color: #037569; 
+        }
+
+        
+        body {
+            color: #037569;
+            background-color: #1A1A1A; 
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .navbar-dark.bg-dark {
+            background-color: #000000 !important;
+            box-shadow: 0 4px 10px 0 rgba(225, 225, 225, 0.3);
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .table th,
+        .table td {
+            border: none;
+        }
+
+        .table th {
+            font-weight: bold;
+        }
+
+        .table td {
+            font-weight: normal;
+        }
+
+        .table td a {
+            color: #037569;
+        }
+
+        .table td a:hover {
+            color: #037569;
+            text-decoration: none;
+        }
+
+        .tweet-container {
+            background-color: #1A1A1A; 
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .tweet-text {
+            color: #037569;
+            font-size: 16px;
+        }
+
+        .user-info {
+            color: #037569;
+            font-size: 14px;
+        }
+
+        .tweet-link {
+            color: #037569;
+            font-size: 14px;
+        }
+
+        .tweet-link:hover {
+            color: #037569;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Results for "{{ search_word }}"</h1>
+        
+        <!-- Sorting Dropdown -->
+        <div class="form-group">
+            <p>Total Search Time: {{search_time}}</p>
+            <label for="sort">Sort By:</label>
+            <!-- Add a dropdown menu for selecting sorting option -->
+<form action="/search_tweets" method="post">
+    <input type="hidden" name="search_word" value="{{ search_word }}">
+    <select name="sort_option">
+        <option value="">Sort by...</option>
+        <option value="created_at_asc">Date: Oldest first</option>
+        <option value="created_at_desc">Date: Newest first</option>
+        <option value="user_asc">User: A-Z</option>
+        <option value="user_desc">User: Z-A</option>
+        <option value="favorite_count_asc">Favorite Count: Low to High</option>
+        <option value="favorite_count_desc">Favorite Count: High to Low</option>
+        <option value="reply_count_asc">Reply Count: Low to High</option>
+        <option value="reply_count_desc">Reply Count: High to Low</option>
+    </select>
+    <button type="submit">Sort</button>
+</form>
+
+        </div>
+
+        <div class="row">
+            {% if tweets_with_word %}
+                {% for tweet in tweets_with_word %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ tweet.user.screen_name }}</h5>
+                                <p class="card-text">{{ tweet.text }}</p>
+                                <a href="{{ url_for('view_tweet', collection_name=tweet.collection, tweet_id=tweet.id_str) }}" class="btn btn-primary">View Tweet</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No tweets found for "{{ search_word }}".</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- JavaScript for Sorting -->
+    <script>
+        function sortTweets(select) {
+            var sortOption = select.value;
+            window.location.href = "{{ url_for('search_tweets_route') }}" + "?search_word={{ search_word }}&sort=" + sortOption;
+        }
+    </script>
+</body>
+</html>

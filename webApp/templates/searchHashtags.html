@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search for #{{ hashtag }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .tweet-item {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Search for # {{ searched_hashtag }}</h1>
+        <p>Total Time Taken: {{search_time}}</p>
+        <div class="list-group">
+            {% for tweet in search_result %}
+            <div class="list-group-item tweet-item">
+                <p><strong>Text:</strong> {{ tweet.text }}</p>
+                <p><strong>Hashtags:</strong>
+                    {% for hashtag in tweet.hashtags %}
+                    #    
+                    {{ hashtag }}
+                    {% endfor %}
+                </p>
+                <p><strong>Collection:</strong> {{ tweet.collection }}</p>
+                <p><strong>User Name:</strong> {{ tweet.user.screen_name }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+
